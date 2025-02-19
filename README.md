@@ -1,4 +1,4 @@
-## Movie_API-Client / myFlix
+## myFlix-React
 This is the client-side of the Movie_API project. The application will incorporate multiple interface views to manage data through the REST API endpoints defined in the Movie_API server-side application.
 
 ## The backend used for this project
