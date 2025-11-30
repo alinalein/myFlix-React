@@ -1,19 +1,18 @@
-import { useState } from 'react'
-import { Form, Button, Row } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { LoadingSpinner } from '../../utils/helpers/helpers'
+import { useState } from "react";
+import { Form, Button, Row } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { baseUrl, LoadingSpinner } from "../../utils/helpers/helpers";
 
 export const SignupView = () => {
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const [birthday, setBirthday] = useState('')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     setLoading(true);
 
@@ -22,40 +21,40 @@ export const SignupView = () => {
       Password: password,
       Email: email,
       Birthday: birthday,
-    }
+    };
 
-    fetch('https://movie-api-lina-834bc70d6952.herokuapp.com/users/signup', {
-      method: 'POST',
+    fetch(`${baseUrl}/users/signup`, {
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
         if (response.status === 201) {
-          alert('You have been signed up');
-          navigate('/login');
+          alert("You have been signed up");
+          navigate("/login");
         } else if (response.status === 401) {
           alert(`Username ${data.Username} already exists`);
         } else if (response.status === 422) {
           return response.json();
         } else {
-          console.error('Error during signup:', response.statusText);
-          alert('An error occurred during signup');
+          console.error("Error during signup:", response.statusText);
+          alert("An error occurred during signup");
         }
       })
       .then((data) => {
         if (data && data.errors && data.errors.length > 0) {
           data.errors.forEach((error) => {
             alert(error.msg);
-            console.error('Validation Error:', error.msg);
+            console.error("Validation Error:", error.msg);
           });
         }
       })
       .finally(() => {
         setLoading(false);
       });
-  }
+  };
 
   return (
     <Row className="login_component mt-2 mb-2">
@@ -129,5 +128,5 @@ export const SignupView = () => {
         </Form.Group>
       </Form>
     </Row>
-  )
-}
+  );
+};

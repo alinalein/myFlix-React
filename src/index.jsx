@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { MainView } from './components/main-view/main-view'
 import { Provider } from "react-redux";
 import { store } from './redux/store';

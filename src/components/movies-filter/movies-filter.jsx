@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, InputGroup } from 'react-bootstrap'
 import { useSelector, useDispatch } from "react-redux";
 import { setFilter, clearFilter } from "../../redux/reducers/movies";

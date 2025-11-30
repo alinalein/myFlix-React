@@ -26,7 +26,7 @@ export const NavigationBar = () => {
           <Nav className="me-auto">
             {!user && (
               <>
-                {/* links to have to match the paths in main-view */}
+                {/* links have to match the paths in main-view */}
                 <Nav.Link as={Link} to="/login">
                   Login
                 </Nav.Link>
@@ -68,7 +68,7 @@ export const NavigationBar = () => {
           </Nav>
           {user && (
             <Nav className="ml-auto">
-              <NavDropdown title="Your Profile" id="basic-nav-dropdown">
+              <NavDropdown title="My Profile" id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/user-profile">
                   User Profile
                 </NavDropdown.Item>

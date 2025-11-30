@@ -1,55 +1,55 @@
-import { useState } from 'react'
-import { Form, Button, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { LoadingSpinner } from '../../utils/helpers/helpers'
-import { setUser } from '../../redux/reducers/user'
-import { useDispatch } from 'react-redux'
-import './login-view.scss'
+import { useState } from "react";
+import { Form, Button, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { LoadingSpinner } from "../../utils/helpers/helpers";
+import { setUser } from "../../redux/reducers/user";
+import { baseUrl } from "../../utils/helpers";
+import { useDispatch } from "react-redux";
+import "./login-view.scss";
 
 export const LoginView = () => {
-
   const dispatch = useDispatch();
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    setLoading(true)
+    event.preventDefault();
+    setLoading(true);
 
     // send this data with the body of POST request
     const data = {
       Username: username,
       Password: password,
-    }
+    };
 
-    fetch('https://movie-api-lina-834bc70d6952.herokuapp.com/users/login', {
-      method: 'POST',
+    fetch(`${baseUrl}/users/login`, {
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Login response: ', data)
+        console.log("Login response: ", data);
         if (data.user) {
-          localStorage.setItem('user', JSON.stringify(data.user))
-          localStorage.setItem('token', data.token)
+          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("token", data.token);
           // set the user and token global state
-          dispatch(setUser({ user: data.user, token: data.token }))
-          document.body.classList.remove('background-image');
+          dispatch(setUser({ user: data.user, token: data.token }));
+          document.body.classList.remove("background-image");
         } else {
-          setLoading(false)
-          alert('Username or password is wrong')
+          setLoading(false);
+          alert("Username or password is wrong");
         }
       })
       .catch((error) => {
-        console.error('Error occurred during login:', error)
-        alert('An error occurred during login. Please try again.')
-      })
-  }
+        console.error("Error occurred during login:", error);
+        alert("An error occurred during login. Please try again.");
+      });
+  };
 
   return (
     <Row className="login_component mt-2 mb-2">
@@ -94,5 +94,5 @@ export const LoginView = () => {
         </div>
       </Form>
     </Row>
-  )
-}
+  );
+};

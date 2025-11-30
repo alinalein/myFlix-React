@@ -1,13 +1,14 @@
-import { Spinner } from 'react-bootstrap'
+import { Spinner } from "react-bootstrap";
 
+export const baseUrl = "https://my-flix-api-267292098478.europe-north1.run.app";
 export const formatDate = (dateString) => {
-  const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
+  const options = { day: "2-digit", month: "2-digit", year: "numeric" };
   const formattedDate = new Date(dateString).toLocaleDateString(
     undefined,
-    options,
-  )
-  return formattedDate
-}
+    options
+  );
+  return formattedDate;
+};
 
 export const LoadingSpinner = ({ loading }) => {
   return (

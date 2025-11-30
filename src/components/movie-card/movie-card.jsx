@@ -14,7 +14,6 @@ export const MovieCard = ({ movie }) => {
           <Card.Title style={{ color: 'white' }} className=" text-center mb-4">
             {movie.Title}
           </Card.Title>
-          {/* <Card.Text>{movie.Description}</Card.Text> */}
           <div className="d-flex justify-content-between">
             <Link to={`/movies/${movie.id}`}>
               <Button variant="outline-info">Details</Button>

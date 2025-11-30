@@ -18,8 +18,6 @@ export const MovieList = ({ loading }) => {
     return movie.Title.toLowerCase().includes(filter);
   });
 
-  // console.log('Filtered Movies:', filteredMovies);
-
   useEffect(() => {
     setShowScrollButton(filteredMovies.length > 8)
   }, [filteredMovies.length])

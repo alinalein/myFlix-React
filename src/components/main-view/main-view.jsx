@@ -1,28 +1,28 @@
-import { useState, useEffect } from 'react'
-import { MovieView } from '../movie-view/movie-view'
-import { MovieList } from '../movie-list/movie-list'
-import { LoginView } from '../login-view/login-view'
-import { SignupView } from '../signup-view/signup-view'
-import { NavigationBar } from '../navigation-bar/navigation-bar'
-import { UserProfile } from '../profile-view/user-profile'
-import { EditProfile } from '../profile-view/edit-profile'
-import { FavoriteMovies } from '../favorite-movies/favorite-movies'
-import { DeleteProfile } from '../profile-view/delete-profile'
-import { MoviesDrama } from '../movies-genre/drama-genre'
-import { MoviesAction } from '../movies-genre/action-genre'
-import { MoviesBiography } from '../movies-genre/biography-genre'
-import { MoviesCrime } from '../movies-genre/crime-genre'
-import { MoviesSciFi } from '../movies-genre/sci-fi-genre'
-import { setMovies } from '../../redux/reducers/movies'
-import { Row, Col, Container } from 'react-bootstrap'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useState, useEffect } from "react";
+import { MovieView } from "../movie-view/movie-view";
+import { MovieList } from "../movie-list/movie-list";
+import { LoginView } from "../login-view/login-view";
+import { SignupView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { UserProfile } from "../profile-view/user-profile";
+import { EditProfile } from "../profile-view/edit-profile";
+import { FavoriteMovies } from "../favorite-movies/favorite-movies";
+import { DeleteProfile } from "../profile-view/delete-profile";
+import { MoviesDrama } from "../movies-genre/drama-genre";
+import { MoviesAction } from "../movies-genre/action-genre";
+import { MoviesBiography } from "../movies-genre/biography-genre";
+import { MoviesCrime } from "../movies-genre/crime-genre";
+import { MoviesSciFi } from "../movies-genre/sci-fi-genre";
+import { setMovies } from "../../redux/reducers/movies";
+import { baseUrl } from "../../utils/helpers";
+import { Row, Col, Container } from "react-bootstrap";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 export const MainView = () => {
-
-  const { user, token } = useSelector((state) => state.user)
-  const movies = useSelector((state) => state.movies.list)
-  const dispatch = useDispatch()
+  const { user, token } = useSelector((state) => state.user);
+  const movies = useSelector((state) => state.movies.list);
+  const dispatch = useDispatch();
 
   // send it to movie-list
   const [loading, setLoading] = useState(false);
@@ -30,38 +30,37 @@ export const MainView = () => {
   /*populate the movies array with the movies from the API */
   useEffect(() => {
     if (!token) {
-      return
+      return;
     }
 
     setLoading(true);
 
-    fetch('https://movie-api-lina-834bc70d6952.herokuapp.com/movies', {
+    fetch(`${baseUrl}/movies`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.map((movie) => {
-          const featutedStatus = movie.Featured ? 'Yes' : 'No'
+          const featutedStatus = movie.Featured ? "Yes" : "No";
           return {
             id: movie._id,
             Title: movie.Title,
             Description: movie.Description,
             Genre: movie.Genre.Name,
             Director: movie.Director.Name,
-            Actors: movie.Actors.join(', '),
+            Actors: movie.Actors.join(", "),
             ImagePath: movie.ImagePath,
             Featured: featutedStatus,
-          }
-        })
-        dispatch(setMovies(moviesFromApi))
-
+          };
+        });
+        dispatch(setMovies(moviesFromApi));
       })
       // Set loading to false once the movies are fetched
       .finally(() => {
         setLoading(false);
-        document.body.classList.remove('background-image');
+        document.body.classList.remove("background-image");
       });
-  }, [token])
+  }, [token]);
 
   return (
     <BrowserRouter>
@@ -197,11 +196,7 @@ export const MainView = () => {
               path="/drama"
               element={
                 <>
-                  {!user ? (
-                    <Navigate to="/login" replace />
-                  ) : (
-                    <MoviesDrama />
-                  )}
+                  {!user ? <Navigate to="/login" replace /> : <MoviesDrama />}
                 </>
               }
             />
@@ -209,11 +204,7 @@ export const MainView = () => {
               path="/crime"
               element={
                 <>
-                  {!user ? (
-                    <Navigate to="/login" replace />
-                  ) : (
-                    <MoviesCrime />
-                  )}
+                  {!user ? <Navigate to="/login" replace /> : <MoviesCrime />}
                 </>
               }
             />
@@ -233,11 +224,7 @@ export const MainView = () => {
               path="/sci-fi"
               element={
                 <>
-                  {!user ? (
-                    <Navigate to="/login" replace />
-                  ) : (
-                    <MoviesSciFi />
-                  )}
+                  {!user ? <Navigate to="/login" replace /> : <MoviesSciFi />}
                 </>
               }
             />
@@ -245,11 +232,7 @@ export const MainView = () => {
               path="/action"
               element={
                 <>
-                  {!user ? (
-                    <Navigate to="/login" replace />
-                  ) : (
-                    <MoviesAction />
-                  )}
+                  {!user ? <Navigate to="/login" replace /> : <MoviesAction />}
                 </>
               }
             />
@@ -257,5 +240,5 @@ export const MainView = () => {
         </Row>
       </Container>
     </BrowserRouter>
-  )
-}
+  );
+};
