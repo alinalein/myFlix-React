@@ -14,7 +14,7 @@ import { MoviesBiography } from "../movies-genre/biography-genre";
 import { MoviesCrime } from "../movies-genre/crime-genre";
 import { MoviesSciFi } from "../movies-genre/sci-fi-genre";
 import { setMovies } from "../../redux/reducers/movies";
-import { baseUrl } from "../../utils/helpers";
+import { baseUrl } from "../../utils/helpers/helpers";
 import { Row, Col, Container } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Form, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { LoadingSpinner } from "../../utils/helpers/helpers";
+import { LoadingSpinner, baseUrl } from "../../utils/helpers/helpers";
 import { setUser } from "../../redux/reducers/user";
-import { baseUrl } from "../../utils/helpers";
 import { useDispatch } from "react-redux";
 import "./login-view.scss";
 
